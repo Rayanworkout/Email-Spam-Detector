@@ -6,7 +6,7 @@ I grabbed 3 datasets from the web and I combined them into one.
 
 The dataset is split into 80% training and 20% testing. Current accuracy is **0.96**, but the sample is very small.
 
-I also included the model that I trained on the dataset. You can use it to classify emails without having to train the model yourself.
+I included the model that I trained with a dataset slice. It is ready to use so you don't need to train it yourself.
 
 
 ## Installation
@@ -29,9 +29,9 @@ pip install -r requirements.txt
 
 ## Usage
 
-If you just want to run the model without training it, you can use the model that I trained.
+If you just want to run the model without training it, follow these steps.
 
-There is some boilerplate code inside `example_usages/main.py` to show basic usage of the model. Note that some abstraction is made inside `spam_detector.py` to make it easier to use the model.
+There is some boilerplate code inside `example_usages/main.py` to show the basic usage. Note that some abstraction is made inside `spam_detector.py` to make it easier to use the model.
 
 ```python
 from spam_detector import SpamDetector
@@ -40,7 +40,9 @@ detector = SpamDetector()
 
 email = "Congratulations! You have been selected as a winner. Text WON to 44255 to claim your prize."
 
-print(detector.predict(email)) # Output: spam
+result = detector.predict(email)
+
+print(result) # spam
 
 emails_list = [
     "Hello, how are you?",
@@ -49,10 +51,10 @@ emails_list = [
 
 bulk_result = detector.predict_many(emails_list)
 
-print(bulk_result) # Output: ['ham', 'spam']
+print(bulk_result) # ['ham', 'spam']
 ```
 
-There is also a flask app example that can be used as an API. You will need to install Flask to run it.
+There is also a flask app example that can be used as an API. You need to install Flask to run it.
 
 ```python
 from spam_detector import SpamDetector
