@@ -1,3 +1,4 @@
+import os
 import pickle
 import string
 from nltk.corpus import stopwords
@@ -8,8 +9,11 @@ class SpamDetector:
         self.vectorizer = None
         self.model = None
         
+        script_dir = os.path.dirname(__file__)
+        model_path = os.path.join(script_dir, model_name)
+        
         # Load model and vectorizer
-        with open(model_name, "rb") as file:
+        with open(model_path, "rb") as file:
             saved_data = pickle.load(file)
             self.model = saved_data['model']
             self.vectorizer = saved_data['vectorizer']
