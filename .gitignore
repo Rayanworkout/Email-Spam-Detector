@@ -2,3 +2,5 @@
 .venv/
 raw_eml_data/
 data_cleaning.py
+datasets/
+__pycache__/
