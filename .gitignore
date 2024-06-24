@@ -1,0 +1,4 @@
+.ipynb_checkpoints/
+.venv/
+raw_eml_data/
+data_cleaning.py
