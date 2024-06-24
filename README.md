@@ -1,7 +1,9 @@
 # Email Spam Detector
 
 This project is a basic email classifier that uses random forest to classify emails as spam or not ham (legit).
-I grabbed 3 datasets from the web and I combined them into one. Unfortunately, my machine is not powerful enough to handle the entire dataset, so I had to reduce the size of the dataset to 5000 emails. The dataset is split into 80% training and 20% testing.
+I grabbed 3 datasets from the web and I combined them into one.
+
+The dataset is split into 80% training and 20% testing. Current accuracy is 0.96, but the sample is very small.
 
 I also included the model that I trained on the dataset. You can use it to classify emails without having to train the model yourself.
 
@@ -29,12 +31,20 @@ There is some boilerplate code inside `main.py` to show basic usage of the model
 ```python
 from spam_detector import SpamDetector
 
-
 detector = SpamDetector()
 
 email = "Congratulations! You have been selected as a winner. Text WON to 44255 to claim your prize."
 
 print(detector.predict(email))
+
+emails_list = [
+    "Hello, how are you?",
+    "Get free money now! You have been selected as winner of our prize",
+]
+
+bulk_result = detector.predict_many(emails_list)
+
+print(bulk_result)
 ```
 
 If you want to train the model, you need to use the `train_model.ipynb` notebook. It contains the code to train the model and save it as a pickle file.
@@ -47,9 +57,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 pip install -r requirements.txt
-pip install notebook
 
 jupyter notebook
 ```
 
-In the first cell, you can modify the `DATASET_SIZE` variable to change the size of the dataset. The default value is 5000, because my computer cannot handle the entire dataset, which is 16315 lines long.
+In the first cell, you can modify the `DATASET_SIZE` variable to change the size of the dataset. The default value is 6000, because my computer cannot handle the entire dataset, which is 16315 lines long.
+
+_Disclaimer: the smaller the dataset, the less accurate the model will be, right now with 6000 lines, the model has an accuracy of 0.96, but it still makes mistakes._
