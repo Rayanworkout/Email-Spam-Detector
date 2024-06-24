@@ -1,5 +1,6 @@
 # Email Spam Detector
 
+
 This project is a basic email classifier that uses random forest to classify emails as spam or not ham (legit).
 I grabbed 3 datasets from the web and I combined them into one.
 
@@ -9,6 +10,7 @@ I also included the model that I trained on the dataset. You can use it to class
 
 
 ## Installation
+
 
 Clone the repository and install the required libraries:
 
@@ -24,9 +26,12 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+
+## Usage
+
 If you just want to run the model without training it, you can use the model that I trained.
 
-There is some boilerplate code inside `main.py` to show basic usage of the model. Note that some abstraction is made inside spam_detector.py to make it easier to use the model.
+There is some boilerplate code inside `example_usages/main.py` to show basic usage of the model. Note that some abstraction is made inside spam_detector.py to make it easier to use the model.
 
 ```python
 from spam_detector import SpamDetector
@@ -35,7 +40,7 @@ detector = SpamDetector()
 
 email = "Congratulations! You have been selected as a winner. Text WON to 44255 to claim your prize."
 
-print(detector.predict(email))
+print(detector.predict(email)) # Output: spam
 
 emails_list = [
     "Hello, how are you?",
@@ -44,8 +49,14 @@ emails_list = [
 
 bulk_result = detector.predict_many(emails_list)
 
-print(bulk_result)
+print(bulk_result) # Output: ['ham', 'spam']
 ```
+
+There is also a flask app example that can be used as an API. You will need to install Flask to run it.
+
+
+### Training the model
+
 
 If you want to train the model, you need to use the `train_model.ipynb` notebook. It contains the code to train the model and save it as a pickle file.
 Make sure you have the required libraries installed and `dataset.csv` in the same directory as the notebook.
