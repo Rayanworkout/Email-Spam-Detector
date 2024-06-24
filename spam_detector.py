@@ -1,6 +1,7 @@
 import os
 import pickle
 import string
+
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
@@ -30,10 +31,7 @@ class SpamDetector:
 
     def predict(self, text: str) -> str:
         cleaned_text = self.__clean_text_data(text)
-        vectorized_email = self.vectorizer.transform([cleaned_text])
-        
-        # Convert vectorized_email to array (if necessary)
-        vectorized_email = vectorized_email.toarray()
+        vectorized_email = self.vectorizer.transform([cleaned_text]).toarray()
 
         result = self.model.predict(vectorized_email)
 
