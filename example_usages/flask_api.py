@@ -13,7 +13,6 @@ from spam_detector import SpamDetector
 
 detector = SpamDetector()
 
-
 # Endpoint to predict single email
 @app.route("/predict", methods=["POST"])
 def predict_email():
