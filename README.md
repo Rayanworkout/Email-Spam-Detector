@@ -27,7 +27,7 @@ pip install -r requirements.txt
 ```
 
 
-## Usage
+## Quick Start
 
 If you just want to run the model without training it, follow these steps.
 
