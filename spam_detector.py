@@ -34,8 +34,9 @@ class SpamDetector:
         vectorized_email = self.vectorizer.transform([cleaned_text]).toarray()
 
         result = self.model.predict(vectorized_email)
-
-        return "spam" if result[0] == 1 else "ham"
+        
+        # True if spam, False if not spam
+        return bool(result[0])
 
     def predict_many(self, texts: list) -> list:
         return [self.predict(text) for text in texts]
