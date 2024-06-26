@@ -20,14 +20,14 @@ OUTLOOK_PASSWORD = os.getenv("OUTLOOK_PASSWORD")
 
 conn = Connector(OUTLOOK_EMAIL, OUTLOOK_PASSWORD)
 
+# Initialize the spam detector
+detector = SpamDetector()
+
 while True:
     try:
         messages = conn.get_folder(folder="inbox", status=EmailStatus.UNSEEN)
 
         if messages is not None:
-            # Initialize the spam detector
-            detector = SpamDetector()
-
             for message in messages:
 
                 from_, subject, full_message = message
