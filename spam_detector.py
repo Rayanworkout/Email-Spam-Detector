@@ -13,12 +13,16 @@ class SpamDetector:
         script_dir = os.path.dirname(__file__)
         model_path = os.path.join(script_dir, model_name)
         
-        # Load model and vectorizer
-        with open(model_path, "rb") as file:
-            saved_data = pickle.load(file)
-            self.model = saved_data['model']
-            self.vectorizer = saved_data['vectorizer']
-
+        try:
+            # Load model and vectorizer
+            with open(model_path, "rb") as file:
+                saved_data = pickle.load(file)
+                self.model = saved_data['model']
+                self.vectorizer = saved_data['vectorizer']
+        except FileNotFoundError:
+            print(f'Model file not found at "{model_path}".')
+            exit(1)
+            
     def __clean_text_data(self, text: str) -> str:
         stemmer = PorterStemmer()
         stop_words = set(stopwords.words("english"))

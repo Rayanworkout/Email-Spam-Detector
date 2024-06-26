@@ -29,7 +29,7 @@ pip install -r requirements.txt
 
 ## Quick Start
 
-If you just want to run the model without training it, follow these steps.
+If you just want to run the model without training it, there are a few ways to use it.
 
 There is some boilerplate code inside `example_usages/main.py` to show the basic usage. Note that some abstraction is made inside `spam_detector.py` to make it easier to use the model.
 
@@ -145,3 +145,18 @@ jupyter notebook
 In the first cell, you can modify the `DATASET_SIZE` variable to change the size of the dataset. The default value is 6000, because my computer cannot handle the entire dataset, which is 16315 lines long.
 
 _Disclaimer: the smaller the dataset, the less accurate the model will be, right now with 6000 lines, the model has an accuracy of 0.96, but it still makes mistakes._
+
+
+After training the model and save it to a pickle file, you can use it as shown in the quick start section, with one difference: you need to load the model when initializing the `SpamDetector` class.
+
+```python
+from spam_detector import SpamDetector
+
+detector = SpamDetector(model_name="your_trained_model.pkl")
+
+email = "Congratulations! You have been selected as a winner. Text WON to 44255 to claim your prize."
+
+print(detector.predict(email))
+
+# Etc ...
+```
