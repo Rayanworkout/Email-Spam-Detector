@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 
 from connector import Connector, EmailStatus
 from dotenv import load_dotenv
@@ -19,17 +20,20 @@ OUTLOOK_PASSWORD = os.getenv("OUTLOOK_PASSWORD")
 
 conn = Connector(OUTLOOK_EMAIL, OUTLOOK_PASSWORD)
 
-messages = conn.get_folder(folder="inbox", status=EmailStatus.UNSEEN)
+while True:
+    messages = conn.get_folder(folder="inbox", status=EmailStatus.UNSEEN)
 
-if messages is not None:
-    # Initialize the spam detector
-    detector = SpamDetector()
+    if messages is not None:
+        # Initialize the spam detector
+        detector = SpamDetector()
 
-    for message in messages:
-        
-        from_, subject, full_message = message
-        
-        is_spam = detector.predict(full_message)
-        result = "spam" if is_spam else "ham"
-        
-        print(f'Message from "{from_}" is a {result}.')
+        for message in messages:
+            
+            from_, subject, full_message = message
+            
+            is_spam = detector.predict(full_message)
+            result = "spam" if is_spam else "ham"
+            
+            print(f'Message from "{from_}" is a {result}.')
+
+    time.sleep(3600 * 2) # Check every 2 hours

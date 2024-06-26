@@ -40,9 +40,9 @@ detector = SpamDetector()
 
 email = "Congratulations! You have been selected as a winner. Text WON to 44255 to claim your prize."
 
-result = detector.predict(email)
+is_spam = detector.predict(email)
 
-print(result) # spam
+print(is_spam) # True
 
 emails_list = [
     "Hello, how are you?",
@@ -51,7 +51,7 @@ emails_list = [
 
 bulk_result = detector.predict_many(emails_list)
 
-print(bulk_result) # ['ham', 'spam']
+print(bulk_result) # [False, True]
 ```
 
 There is also a flask app example that can be used as an API. You need to install Flask to run it.
@@ -90,6 +90,38 @@ if __name__ == "__main__":
 
 # multiple emails
 # curl -X POST -H "Content-Type: application/json" -d '{"emails": ["Hello, how are you?", "Get free money now! You have been selected as winner of our prize"]}' http://localhost:5000/predict_bulk
+```
+
+
+If you wish to monitor your emails as they arrive, I made 2 example scripts inside the `watcher` directory. There is a `connector` class that you can use to connect to your email server and fetch emails. **It currently supports outlook only, but it can be easily modified to support other email providers.**
+
+The way to use this class is showed inside `watcher.py`. Here for example we monitor unseen emails and predict if they are spam or not.
+
+```python
+# CREDENTIALS
+OUTLOOK_EMAIL = os.getenv("OUTLOOK_EMAIL")
+OUTLOOK_PASSWORD = os.getenv("OUTLOOK_PASSWORD")
+
+# Login to email server
+conn = Connector(OUTLOOK_EMAIL, OUTLOOK_PASSWORD)
+
+while True:
+    messages = conn.get_folder(folder="inbox", status=EmailStatus.UNSEEN)
+
+    if messages is not None:
+        # Initialize the spam detector
+        detector = SpamDetector()
+
+        for message in messages:
+            
+            from_, subject, full_message = message
+            
+            is_spam = detector.predict(full_message)
+            result = "spam" if is_spam else "ham"
+            
+            print(f'Message from "{from_}" is a {result}.')
+
+    time.sleep(3600 * 2) # Check every 2 hours
 ```
 
 
