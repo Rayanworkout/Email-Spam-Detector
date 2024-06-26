@@ -128,7 +128,7 @@ while True:
 ### Training the model
 
 
-If you want to train the model, you need to use the `train_model.ipynb` notebook. It contains the code to train the model and save it as a pickle file.
+If you want to train the model, you need to use the `notebooks/train_model.ipynb` notebook. It contains the code to train the model and save it as a pickle file.
 Make sure you have the required libraries installed and `dataset.csv` in the same directory as the notebook.
 
 ```bash
