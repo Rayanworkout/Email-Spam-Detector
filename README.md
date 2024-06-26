@@ -31,7 +31,7 @@ pip install -r requirements.txt
 
 If you just want to run the model without training it, there are a few ways to use it.
 
-There is some boilerplate code inside `example_usages/main.py` to show the basic usage. Note that some abstraction is made inside `spam_detector.py` to make it easier to use the model.
+There is some boilerplate code inside `basic_usage/main.py` to show the basic usage. Note that some abstraction is made inside `spam_detector.py` to make it easier to use the model.
 
 ```python
 from spam_detector import SpamDetector
@@ -93,9 +93,9 @@ if __name__ == "__main__":
 ```
 
 
-If you wish to monitor your emails as they arrive, I made 2 example scripts inside the `watcher` directory. There is a `connector` class that you can use to connect to your email server and fetch emails. **It currently supports outlook only, but it can be easily modified to support other email providers.**
+If you wish to monitor your emails as they arrive, I made 2 example scripts inside the `spams_watcher` directory. There is a `connector` class that you can use to connect to your email server and fetch emails. **It currently supports outlook only, but it can be easily modified to support other email providers.**
 
-The way to use this class is showed inside `watcher.py`. Here for example we monitor unseen emails and predict if they are spam or not.
+The way to use this class is showed inside `spams_watcher/watcher.py`. Here for example we monitor unseen emails and predict if they are spam or not.
 
 ```python
 # CREDENTIALS
